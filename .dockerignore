@@ -1,0 +1,10 @@
+images/
+models/
+__pycache__/
+*.pyc
+*.pkl
+*.pth
+*.pt
+*.log
+.git
+.venv
