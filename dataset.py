@@ -1,8 +1,10 @@
 import os
 import pandas as pd
-from PIL import Image
-import torch
 import numpy as np
+from PIL import Image
+from tifffile import imread
+
+import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 
@@ -122,8 +124,10 @@ class BaseDataset(Dataset):
         return os.path.join(self.image_dir, image_id)
 
     def _load_image(self, path):
-        img = np.array(Image.open(path))
-        return img
+        if path.lower().endswith((".tif", ".tiff")):
+            return np.asarray(imread(path))
+        else:
+            return np.asarray(Image.open(path))
 
     def __len__(self):
         return len(self.image_ids)
